@@ -1,0 +1,74 @@
+{
+  "repository": "https://github.com/One4Lots/AnyKernel3",
+  "commit": "b982147e3e4603eb59cc01699f09cc9d62f5715e",
+  "properties": [
+    [
+      "kernel.name",
+      ""
+    ],
+    [
+      "kernel.string",
+      ""
+    ],
+    [
+      "kernel.version",
+      ""
+    ],
+    [
+      "kernel.toolchain",
+      ""
+    ],
+    [
+      "kernel.maintainer",
+      ""
+    ],
+    [
+      "device.name1",
+      ""
+    ],
+    [
+      "device.name2",
+      ""
+    ],
+    [
+      "supported.versions",
+      ""
+    ],
+    [
+      "do.devicecheck",
+      "1"
+    ],
+    [
+      "do.modules",
+      "0"
+    ],
+    [
+      "do.systemless",
+      "0"
+    ],
+    [
+      "do.cleanup",
+      "1"
+    ],
+    [
+      "do.cleanuponabort",
+      "1"
+    ]
+  ],
+  "ui_metadata_properties": [
+    "kernel.maintainer",
+    "kernel.name",
+    "kernel.toolchain",
+    "kernel.version"
+  ],
+  "device_display_source": "getprop ro.product.device",
+  "android_display_source": "ro.build.version.release from /system/build.prop, falling back to getprop",
+  "sha256": {
+    "anykernel.sh": "2bcf773d36fcbb67bb24efd78c2eee371ccf971b6850462f2d3dc1834665eccf",
+    "tools/install-ui.sh": "5952fb5175a5a96961a56ea6d33bf51d07241b38c0025ac5b8f75234bd6fb174",
+    "tools/ak3-core.sh": "0544478d92865e2f16aab00676de475af8bbbb0abecea738716f4aea3f484c9b",
+    "tools/f2fs.sh": "88445b8a4cd5f3485bb74feb8b6749f4613ee02dec62194f6ba2cd91f4b8497f",
+    "META-INF/com/google/android/update-binary": "1e17ee51c1cd40485cc10f482a931596fa8c30f3085eef1bfcbdc691e02d1e13",
+    "banner": "9f8bb1f656cce3b5a01100367f494bc381bfdc7af2d08a1d3adbbd03b0ebe25f"
+  }
+}

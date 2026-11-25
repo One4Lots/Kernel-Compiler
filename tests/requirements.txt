@@ -1,0 +1,4 @@
+# Offline validation only; the production builder uses Ubuntu APT dependencies.
+PyYAML==6.0.3
+ruff==0.15.1
+shellcheck-py==0.11.0.1

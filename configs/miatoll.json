@@ -1,0 +1,29 @@
+{
+  "kernel_name": "Alecto",
+  "kernel_rc": "rc1",
+  "device_name": "miatoll",
+  "supported_versions": "12.0-17.0",
+  "anykernel_repository": "https://github.com/One4Lots/AnyKernel3",
+  "repo_visibility": "private",
+  "kernel_repository": "https://github.com/One4Lots/Alecto_kernel_qcom",
+  "build_mode": "single",
+  "single_branch": "staging",
+  "multi_branches_json": [
+    {
+      "branch": "17.0/modern-sched"
+    },
+    {
+      "branch": "17.0/upstream-susfs"
+    }
+  ],
+  "defconfig": "vendor/xiaomi/miatoll_defconfig",
+  "image_type": "Image.gz + dtbo.img + dtb.img",
+  "toolchain": "android-clang",
+  "publish_to": "artifacts only",
+  "changelog_mode": "latest-message",
+  "commit_count": 6,
+  "release_repository": "",
+  "release_target": "",
+  "duplicate_release": "fail",
+  "device_codenames": "curtana,gram,excalibur,joyeuse"
+}

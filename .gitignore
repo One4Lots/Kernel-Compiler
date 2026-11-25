@@ -1,0 +1,24 @@
+# Workflow checkouts, caches, and generated build output
+/.toolchains/
+/.kernel-build-apt/
+/kernel/
+/anykernel/
+/artifacts/
+/logs/
+
+# Local Python checks
+__pycache__/
+*.py[cod]
+/.ruff_cache/
+/.coverage*
+/htmlcov/
+
+# Local test environment
+/.venv/
+
+# Verified publisher staging
+/release-downloads/
+/release-assets/
+
+# Downloadable source bundles
+/deliverables/

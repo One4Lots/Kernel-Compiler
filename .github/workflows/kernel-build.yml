@@ -1,0 +1,45 @@
+name: 📱 Mobile Kernel Build
+run-name: "📱 Mobile · ${{ inputs.kernel_rc }} · ${{ inputs.build_mode }} · ${{ inputs.toolchain }} · ${{ inputs.publish_to }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      config_file:
+        description: Build profile in configs/ (edit this file for advanced settings)
+        type: string
+        default: configs/miatoll.json
+      kernel_rc:
+        description: Package RC and exact release tag
+        type: string
+        default: rc1
+      build_mode:
+        description: Branch selection
+        type: choice
+        options: [single, multi]
+        default: single
+      toolchain:
+        description: Compiler for all branches
+        type: choice
+        options: [android-clang, neutron-clang]
+        default: android-clang
+      publish_to:
+        description: ZIP delivery (personal is your private bot chat; channel is public)
+        type: choice
+        options: ['artifacts only', 'personal only', personal+channel, personal+github, channel+github, personal+channel+github]
+        default: artifacts only
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: 📱 Mobile pipeline
+    uses: ./.github/workflows/kernel-pipeline.yml
+    with:
+      request_json: ${{ toJSON(inputs) }}
+    secrets:
+      GH_PAT: ${{ secrets.GH_PAT }}
+      GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

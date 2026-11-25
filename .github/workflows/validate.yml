@@ -1,0 +1,47 @@
+name: Workflow validation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - 'configs/**'
+  pull_request:
+    paths:
+      - '.github/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - 'configs/**'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Ubuntu system Python and offline checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: 📂 Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: 📦 Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            python3-yaml python3-venv make zip unzip
+      - name: 🔎 System checks
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: /usr/bin/python3 -m unittest discover -s tests -v
+      - name: 🐍 Check environment
+        run: |
+          /usr/bin/python3 -m venv .venv
+          .venv/bin/python -m pip install -r tests/requirements.txt
+      - name: ✅ Validate source
+        run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" bash scripts/check.sh

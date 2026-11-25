@@ -1,0 +1,113 @@
+name: 🖥️ Desktop Kernel Build
+run-name: "🖥️ Desktop · ${{ inputs.kernel_rc }} · ${{ inputs.build_mode }} · ${{ inputs.toolchain }} · ${{ inputs.publish_to }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      config_file:
+        description: Build profile in configs/ (edit this file for advanced settings)
+        type: string
+        default: configs/miatoll.json
+      kernel_rc:
+        description: Package RC and exact release tag
+        type: string
+        default: rc1
+      build_mode:
+        description: Branch selection
+        type: choice
+        options: [single, multi]
+        default: single
+      toolchain:
+        description: Compiler for all branches
+        type: choice
+        options: [android-clang, neutron-clang]
+        default: android-clang
+      publish_to:
+        description: ZIP delivery (personal is your private bot chat; channel is public)
+        type: choice
+        options: ['artifacts only', 'personal only', personal+channel, personal+github, channel+github, personal+channel+github]
+        default: artifacts only
+      kernel_name:
+        description: Kernel branding (blank inherits profile)
+        type: string
+        default: ''
+      device_name:
+        description: Package label only (blank inherits profile)
+        type: string
+        default: ''
+      device_codenames:
+        description: Ordered installer codenames, comma-separated (blank inherits)
+        type: string
+        default: ''
+      supported_versions:
+        description: Android version expression (blank inherits profile)
+        type: string
+        default: ''
+      kernel_repository:
+        description: HTTPS GitHub kernel URL (blank inherits profile)
+        type: string
+        default: ''
+      repo_visibility:
+        description: Source visibility
+        type: choice
+        options: [profile, private, public]
+        default: profile
+      single_branch:
+        description: Kernel source branch (blank inherits profile)
+        type: string
+        default: ''
+      multi_branches_json:
+        description: Branch matrix JSON array (blank inherits profile)
+        type: string
+        default: ''
+      defconfig:
+        description: ARM64 defconfig path (blank inherits profile)
+        type: string
+        default: ''
+      image_type:
+        description: Kernel payload mode
+        type: choice
+        options: [profile, 'Image.gz + dtbo.img + dtb.img', 'Image.lz4 + dtbo.img + dtb.img', Image.gz.dtb]
+        default: profile
+      anykernel_repository:
+        description: Public HTTPS GitHub installer URL (blank inherits profile)
+        type: string
+        default: ''
+      changelog_mode:
+        description: Telegram commit display
+        type: choice
+        options: [profile, latest-message, recent-commits]
+        default: profile
+      commit_count:
+        description: Recent commit count 1-50 (blank inherits profile)
+        type: string
+        default: ''
+      release_repository:
+        description: GitHub release owner/repo (blank inherits profile)
+        type: string
+        default: ''
+      release_target:
+        description: Destination tag branch/commit (blank inherits profile)
+        type: string
+        default: ''
+      duplicate_release:
+        description: Existing GitHub tag/release policy
+        type: choice
+        options: [profile, fail, skip, update]
+        default: profile
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: 🖥️ Desktop pipeline
+    uses: ./.github/workflows/kernel-pipeline.yml
+    with:
+      request_json: ${{ toJSON(inputs) }}
+    secrets:
+      GH_PAT: ${{ secrets.GH_PAT }}
+      GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
